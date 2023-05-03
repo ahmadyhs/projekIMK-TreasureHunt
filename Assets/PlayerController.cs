@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     //public float rotation;
     public float moveSpeed;
     public float jumpspeed = 1f;
+    public float gravity = 1f;
+    float jjumpspeed = 1f;
     public float rotationSpeed=1f;
     public float rotationTarget=0f;
     float rotateDir = 0;
@@ -82,16 +84,25 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs( rotationTarget - rotation)> 180) rotateDir *= -1;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         Debug.Log("touch something");
-        if (other.tag == "ground")
+        if (other.gameObject.tag == "ground")
         {
             Debug.Log("touch ground");
             isJumping = false;
             transform.position = new Vector3(transform.position.x, other.transform.position.y,transform.position.z);
         }
 
+    }
+    private void OnCollisionExit(Collision other)
+    {
+        Debug.Log("exit something");
+        if (other.gameObject.tag == "ground")
+        {
+            Debug.Log("exit ground");
+            isJumping = true;
+        }
     }
 
     private void checkJump()
@@ -101,19 +112,22 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(jumpkey))
             {
                 isJumping= true;
+                jumpT = 0f;
+                jjumpspeed = jumpspeed;
             }
         }
     }
     private void updatePosition()
     {
-        if (isDirectionalKeyPressed) movementT += Time.deltaTime;
-        else movementT = 0f;
         if (isJumping) 
         {
-            transform.position = transform.position + transform.up * jumpAccelerationCurve.Evaluate(jumpT) * Time.deltaTime * jumpspeed;
-            jumpT += Time.deltaTime;
+            movementT = 1f;
+            transform.position = transform.position + transform.up * jumpAccelerationCurve.Evaluate(jumpT) * Time.deltaTime * jjumpspeed;
         } 
-        else jumpT = 0f;
+        else jjumpspeed= gravity;
+        jumpT += Time.deltaTime;
+        if (isDirectionalKeyPressed) movementT += Time.deltaTime;
+        else movementT = 0f;
         transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * Time.deltaTime * moveSpeed;
     }
     private void updateRotation()
