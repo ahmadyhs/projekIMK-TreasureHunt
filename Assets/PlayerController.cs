@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     //public float rotation;
     public float moveSpeed;
+    public float jumpspeed = 1f;
     public float rotationSpeed=1f;
     public float rotationTarget=0f;
     float rotateDir = 0;
@@ -15,14 +16,19 @@ public class PlayerController : MonoBehaviour
     public KeyCode east = KeyCode.D;
     public KeyCode south = KeyCode.S;
     public KeyCode west = KeyCode.A;
+    public KeyCode jumpkey = KeyCode.Space;
     float movementT;
+    float jumpT;
     bool isDirectionalKeyPressed = false;
     public AnimationCurve accelerationCurve;
-    
+    public AnimationCurve jumpAccelerationCurve;
+    bool isJumping = false;
+
     // Start is called before the first frame update
     void Start()
     {
         movementT = 0f;
+        jumpT = 0f;
     }
 
     // Update is called once per frame
@@ -32,6 +38,7 @@ public class PlayerController : MonoBehaviour
         else isDirectionalKeyPressed = false;
         updatePosition();
         updateRotation();
+        checkJump();
     }
     private void FixedUpdate()
     {
@@ -48,36 +55,65 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(south))
         {
-            rotationTarget += 90;
+            rotationTarget += 180;
             rotationPressed += 1;
         }
         if (Input.GetKey(west))
         {
-            rotationTarget += 180;
-            rotationPressed += 1;
-        }
-        if (Input.GetKey(north)) {
             rotationTarget += 270;
             rotationPressed += 1;
         }
         if (Input.GetKey(east))
         {
-            rotationTarget += get0or360(rotationTarget/rotationPressed);
+            rotationTarget += 90;
+            rotationPressed += 1;
+        }
+        if (Input.GetKey(north))
+        {
+            rotationTarget += get0or360(rotationTarget / rotationPressed);
             rotationPressed += 1;
         }
         if (rotationPressed == 0)rotationPressed= 1;
         if (isDirectionalKeyPressed) rotationTarget = rotationTarget / rotationPressed;
-        Debug.Log(rotationTarget);
+        //Debug.Log(rotationTarget);
         if (rotationTarget == 0 || rotationTarget == 360) rotationTarget = get0or360(rotation);
         rotateDir = Mathf.Sign(rotationTarget - rotation);
         rotateState = rotateDir;
         if (Mathf.Abs( rotationTarget - rotation)> 180) rotateDir *= -1;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("touch something");
+        if (other.tag == "ground")
+        {
+            Debug.Log("touch ground");
+            isJumping = false;
+            transform.position = new Vector3(transform.position.x, other.transform.position.y,transform.position.z);
+        }
+
+    }
+
+    private void checkJump()
+    {
+        if (!isJumping)
+        {
+            if (Input.GetKey(jumpkey))
+            {
+                isJumping= true;
+            }
+        }
+    }
     private void updatePosition()
     {
         if (isDirectionalKeyPressed) movementT += Time.deltaTime;
         else movementT = 0f;
+        if (isJumping) 
+        {
+            transform.position = transform.position + transform.up * jumpAccelerationCurve.Evaluate(jumpT) * Time.deltaTime * jumpspeed;
+            jumpT += Time.deltaTime;
+        } 
+        else jumpT = 0f;
         transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * Time.deltaTime * moveSpeed;
     }
     private void updateRotation()
