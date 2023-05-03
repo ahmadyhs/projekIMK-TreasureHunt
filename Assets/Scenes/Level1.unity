@@ -611,7 +611,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
+  lookOffset: {x: 0, y: 5, z: 23}
   target: {fileID: 1651304548}
+  targetPoint: {x: 0, y: 0, z: 0}
   moveSpeed: 15.3
 --- !u!1 &1031315827
 GameObject:
