@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     //public float rotation;
     public float moveSpeed;
     public float speedBoostModifier;
+    public float speedBoostRotationModifer;
     public float jumpspeed = 1f;
     public bool jumpBoost = false;
     public bool speedBoost = false;
@@ -147,17 +148,20 @@ public class PlayerController : MonoBehaviour
         }
         else if(speedBoost && !isJumping) stopT += Time.deltaTime;
         else movementT = 0f;
-        float speed = moveSpeed * speedBoostModifier;
+        float speed = moveSpeed;
+        if (speedBoost) speed *= speedBoostModifier;
         transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * speed * Time.deltaTime * deaccelerationCurve.Evaluate(stopT);
     }
     private void updateRotation()
     {
         float rotation = transform.eulerAngles.y;
-        if(rotation != rotationTarget)
+        if (speedBoost)
         {
-            float speed = rotationSpeed;
-            if (speedBoost) speed *= 300f;
-            rotation = rotation + rotateDir * speed * Time.deltaTime;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotationTarget, transform.eulerAngles.z);
+        }
+        else if(rotation != rotationTarget)
+        {
+            rotation = rotation + rotateDir * rotationSpeed * Time.deltaTime;
             if (rotation < 0 && rotateDir < 0) { rotation += 360; rotateState *= -1; };
             if (rotation > 360 && rotateDir > 0) { rotation -= 360; rotateState *= -1; };
             if (Mathf.Sign(rotationTarget - rotation) != rotateState)  rotation = rotationTarget;

@@ -612,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   target: {fileID: 1651304548}
-  moveSpeed: 50
+  moveSpeed: 15.3
 --- !u!1 &1031315827
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57622522c59ffa498d1c1608e2b2285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 53.49
+  moveSpeed: 40
+  speedBoostModifier: 2
+  speedBoostRotationModifer: 6
   jumpspeed: 196
   jumpBoost: 0
   speedBoost: 0
@@ -910,7 +912,7 @@ MonoBehaviour:
       outWeight: 0.59167147
     - serializedVersion: 3
       time: 0.49999592
-      value: 0.004717773
+      value: 0.000018065795
       inSlope: -5.8879056
       outSlope: -5.8879056
       tangentMode: 0
