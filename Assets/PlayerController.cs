@@ -7,8 +7,7 @@ public class PlayerController : MonoBehaviour
     //public float rotation;
     public float moveSpeed;
     public float jumpspeed = 1f;
-    public float gravity = 1f;
-    float jjumpspeed = 1f;
+    public bool jumpBoost = true;
     public float rotationSpeed=1f;
     public float rotationTarget=0f;
     float rotateDir = 0;
@@ -24,13 +23,14 @@ public class PlayerController : MonoBehaviour
     bool isDirectionalKeyPressed = false;
     public AnimationCurve accelerationCurve;
     public AnimationCurve jumpAccelerationCurve;
+    public AnimationCurve jumpBoostAccelerationCurve;
     bool isJumping = false;
 
     // Start is called before the first frame update
     void Start()
     {
         movementT = 0f;
-        jumpT = 0f;
+        jumpT = 0.38f;
     }
 
     // Update is called once per frame
@@ -113,7 +113,6 @@ public class PlayerController : MonoBehaviour
             {
                 isJumping= true;
                 jumpT = 0f;
-                jjumpspeed = jumpspeed;
             }
         }
     }
@@ -122,9 +121,12 @@ public class PlayerController : MonoBehaviour
         if (isJumping) 
         {
             movementT = 1f;
-            transform.position = transform.position + transform.up * jumpAccelerationCurve.Evaluate(jumpT) * Time.deltaTime * jjumpspeed;
+            AnimationCurve curve;
+            if (jumpBoost) curve = jumpBoostAccelerationCurve;
+            else curve = jumpAccelerationCurve;
+            transform.position = transform.position + transform.up * curve.Evaluate(jumpT) * Time.deltaTime * jumpspeed;
         } 
-        else jjumpspeed= gravity;
+        //else jjumpspeed= 0f;
         jumpT += Time.deltaTime;
         if (isDirectionalKeyPressed) movementT += Time.deltaTime;
         else movementT = 0f;
