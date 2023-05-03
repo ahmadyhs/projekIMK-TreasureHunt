@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     //public float rotation;
     public float moveSpeed;
+    public float speedBoostModifier;
     public float jumpspeed = 1f;
-    public bool jumpBoost = true;
+    public bool jumpBoost = false;
+    public bool speedBoost = false;
     public float rotationSpeed=1f;
     public float rotationTarget=0f;
     float rotateDir = 0;
@@ -19,9 +21,11 @@ public class PlayerController : MonoBehaviour
     public KeyCode west = KeyCode.A;
     public KeyCode jumpkey = KeyCode.Space;
     float movementT;
+    float stopT;
     float jumpT;
     bool isDirectionalKeyPressed = false;
     public AnimationCurve accelerationCurve;
+    public AnimationCurve deaccelerationCurve;
     public AnimationCurve jumpAccelerationCurve;
     public AnimationCurve jumpBoostAccelerationCurve;
     bool isJumping = false;
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         movementT = 0f;
         jumpT = 0.38f;
+        stopT = 0f;
     }
 
     // Update is called once per frame
@@ -116,6 +121,13 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    private void checkMove()
+    {
+        if (isDirectionalKeyPressed)
+        {
+
+        }
+    }
     private void updatePosition()
     {
         if (isJumping) 
@@ -128,16 +140,24 @@ public class PlayerController : MonoBehaviour
         } 
         //else jjumpspeed= 0f;
         jumpT += Time.deltaTime;
-        if (isDirectionalKeyPressed) movementT += Time.deltaTime;
+        if (isDirectionalKeyPressed)
+        {
+            stopT = 0f;
+            movementT += Time.deltaTime;
+        }
+        else if(speedBoost && !isJumping) stopT += Time.deltaTime;
         else movementT = 0f;
-        transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * Time.deltaTime * moveSpeed;
+        float speed = moveSpeed * speedBoostModifier;
+        transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * speed * Time.deltaTime * deaccelerationCurve.Evaluate(stopT);
     }
     private void updateRotation()
     {
         float rotation = transform.eulerAngles.y;
         if(rotation != rotationTarget)
         {
-            rotation = rotation + rotateDir * rotationSpeed * Time.deltaTime;
+            float speed = rotationSpeed;
+            if (speedBoost) speed *= 300f;
+            rotation = rotation + rotateDir * speed * Time.deltaTime;
             if (rotation < 0 && rotateDir < 0) { rotation += 360; rotateState *= -1; };
             if (rotation > 360 && rotateDir > 0) { rotation -= 360; rotateState *= -1; };
             if (Mathf.Sign(rotationTarget - rotation) != rotateState)  rotation = rotationTarget;
