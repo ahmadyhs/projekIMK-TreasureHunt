@@ -19,7 +19,7 @@ public class lightWaving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        t += Time.deltaTime;
-        l.intensity = originalIntensity +  range * Mathf.Sin(speed * t);
+        t += Time.deltaTime * speed;
+        l.intensity = originalIntensity +  range * Mathf.Sin(t);
     }
 }
