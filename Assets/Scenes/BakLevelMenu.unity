@@ -219,8 +219,9 @@ GameObject:
   - component: {fileID: 250995382}
   - component: {fileID: 250995381}
   - component: {fileID: 250995380}
+  - component: {fileID: 250995383}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,7 +291,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 250995381}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 250995383}
+        m_TargetAssemblyTypeName: SceneLoad, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &250995381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +342,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250995378}
   m_CullTransparentMesh: 1
+--- !u!114 &250995383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250995378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab38f9ea96ebbe47ab5a4b51c9c6679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: BakMainMenu
 --- !u!1 &426298144
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,8 +461,9 @@ GameObject:
   - component: {fileID: 432740141}
   - component: {fileID: 432740140}
   - component: {fileID: 432740139}
+  - component: {fileID: 432740142}
   m_Layer: 5
-  m_Name: Level1 Button
+  m_Name: 'Level1 '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -506,7 +533,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 432740140}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 432740142}
+        m_TargetAssemblyTypeName: SceneLoad, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &432740140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,6 +584,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432740137}
   m_CullTransparentMesh: 1
+--- !u!114 &432740142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432740137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab38f9ea96ebbe47ab5a4b51c9c6679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: shooting2
 --- !u!1 &806838015
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,8 +992,9 @@ GameObject:
   - component: {fileID: 1525559909}
   - component: {fileID: 1525559908}
   - component: {fileID: 1525559907}
+  - component: {fileID: 1525559910}
   m_Layer: 5
-  m_Name: Level2 Button (1)
+  m_Name: 'Level2 '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,7 +1064,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1525559908}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1525559910}
+        m_TargetAssemblyTypeName: SceneLoad, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1525559908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,6 +1115,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525559905}
   m_CullTransparentMesh: 1
+--- !u!114 &1525559910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525559905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab38f9ea96ebbe47ab5a4b51c9c6679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: shooting2
 --- !u!1 &1768902914
 GameObject:
   m_ObjectHideFlags: 0
