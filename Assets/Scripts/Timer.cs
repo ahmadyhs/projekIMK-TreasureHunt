@@ -8,7 +8,6 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timer;
     private float startTime;
     private bool finished=false;
-    private string elapsedTime;
 
     void Start()
     {
