@@ -5,13 +5,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class backgrounduCameraMovement : MonoBehaviour
+public class backgroundCameraMovement : MonoBehaviour
 {
     // private Vector2 middle
-    public float moveSensitivity = 0.003f;
+    public float panSensitivity = 0.003f;
     public float lookSensitivity = 0.003f;
-    public float autoSpeed = 1f;
-    public float autoRadius = 200f;
+    public float autoPanSpeed = 1f;
+    public float autoPanRadius = 200f;
     private Quaternion originalRotation;
     private Vector3 originalPosition;
     private Vector2 autoOffset;
@@ -28,9 +28,9 @@ public class backgrounduCameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        t += Time.deltaTime * autoSpeed;
-        autoOffset.x = Mathf.Cos(t) * autoRadius;
-        autoOffset.y = Mathf.Sin(t) * autoRadius;
+        t += Time.deltaTime * autoPanSpeed;
+        autoOffset.x = Mathf.Cos(t) * autoPanRadius;
+        autoOffset.y = Mathf.Sin(t) * autoPanRadius;
         Vector2 mousePos = Input.mousePosition;
         // IMPLEMENT MOUSEPOS CLAMP HERE
         Vector2 offset;
@@ -41,10 +41,10 @@ public class backgrounduCameraMovement : MonoBehaviour
         rotation.y = offset.x;
         rotation.x = offset.y*-1;
         Vector3 position = new Vector3();
-        position.z = offset.x;
+        position.z = offset.x*-1;
         position.y = offset.y;
         transform.rotation = originalRotation * Quaternion.Euler(rotation * lookSensitivity);
-        transform.position = originalPosition + position * moveSensitivity;
+        transform.position = originalPosition + position * panSensitivity;
 
     }
 
