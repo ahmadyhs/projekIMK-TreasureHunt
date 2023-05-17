@@ -5113,6 +5113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72257d98a94b460479bdafe096396fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxInstance: 1
+  tag: Music
 --- !u!114 &1576151101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5787,10 +5789,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b6af0bc06058864fafb04d8abd2665b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSensitivity: 0.003
-  lookSensitivity: 0
-  autoPanSpeed: 1
-  autoPanRadius: 200
+  panSensitivity: 0
+  lookSensitivity: 0.007
+  autoSpeed: 1
+  autoRadius: 100
 --- !u!1 &1951541262
 GameObject:
   m_ObjectHideFlags: 0

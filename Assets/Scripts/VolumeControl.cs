@@ -8,11 +8,7 @@ public class VolumeControl : MonoBehaviour
 {
     AudioSource audioSource;
     public FloatReference volumeValue;
-    Slider volumeSlider;
 
-    private void Reset()
-    {
-    }
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
