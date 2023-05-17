@@ -1,3 +1,4 @@
+using RoboRyanTron.Unite2017.Variables;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,17 +6,27 @@ using UnityEngine.UI;
 
 public class VolumeControl : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public Slider volumeSlider;
+    AudioSource audioSource;
+    public FloatReference volumeValue;
+    Slider volumeSlider;
 
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void Start()
     {
-        volumeSlider.value = audioSource.volume;
-        volumeSlider.onValueChanged.AddListener(OnSliderValueChanged);
+        SetVolume();
+        //volumeSlider.value = audioSource.volume;
+        //volumeSlider.onValueChanged.AddListener(OnSliderValueChanged);
     }
-    private void OnSliderValueChanged(float value)
+    //private void OnSliderValueChanged(float value)
+    //{
+    //    SetVolume(value);
+    //}
+    public void SetVolume()
     {
-        SetVolume(value);
+        this.SetVolume(volumeValue.Value);
     }
     public void SetVolume(float volume)
     {

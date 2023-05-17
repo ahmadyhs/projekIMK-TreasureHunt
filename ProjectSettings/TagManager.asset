@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - Coin
+  - Music
   layers:
   - Default
   - TransparentFX
