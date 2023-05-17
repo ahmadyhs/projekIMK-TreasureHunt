@@ -10,12 +10,12 @@ public class VolumeControl : MonoBehaviour
     public FloatReference volumeValue;
     Slider volumeSlider;
 
-    private void Awake()
+    private void Reset()
     {
-        audioSource = GetComponent<AudioSource>();
     }
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         SetVolume();
         //volumeSlider.value = audioSource.volume;
         //volumeSlider.onValueChanged.AddListener(OnSliderValueChanged);

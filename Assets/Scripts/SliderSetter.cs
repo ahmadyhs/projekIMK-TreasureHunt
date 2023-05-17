@@ -8,10 +8,13 @@ public class SliderSetter : MonoBehaviour
 {
     public Slider slider;
     public FloatReference sliderValue;
+
+    private void Reset()
+    {
+        slider = this.gameObject.GetComponent<Slider>();
+    }
     private void Awake()
     {
-        if (slider != null)
-        slider = this.gameObject.GetComponent<Slider>();
         slider.value= sliderValue.Value;
     }
     // Start is called before the first frame update
