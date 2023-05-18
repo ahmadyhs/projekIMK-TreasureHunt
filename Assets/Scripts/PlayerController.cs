@@ -37,9 +37,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Horizontal = " + Input.GetAxisRaw("Horizontal"));
-        Debug.Log("Vertical = " + Input.GetAxis("Vertical"));
-        Debug.Log("Jump = " + Input.GetAxis("Jump"));
+      
         updateDirection();
         isDirectionalKeyPressed = direction != Vector3.zero;
         checkJump();
@@ -107,10 +105,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("touch something");
         if (other.gameObject.tag == "ground")
         {
-            Debug.Log("touch ground");
             isJumping = false;
             transform.position = new Vector3(transform.position.x, other.transform.position.y,transform.position.z);
         }
@@ -118,10 +114,8 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionExit(Collision other)
     {
-        Debug.Log("exit something");
         if (other.gameObject.tag == "ground")
         {
-            Debug.Log("exit ground");
             isJumping = true;
         }
     }
