@@ -14,6 +14,8 @@ public class OutOfBound : MonoBehaviour
         public TextMeshProUGUI lives;
         public Transform respawnPosition;
         public SceneReference targetScene;
+        private Vector3 checkpointPosition;
+
         private void Start()
         {
             remainingLives = maxLives;
@@ -23,12 +25,14 @@ public class OutOfBound : MonoBehaviour
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("OUB"))
-            {
-            Debug.Log("kena");
-                ReduceLife();
-            }
-        if (other.CompareTag("Trap"))
+        if (other.CompareTag("OUB"))
+        {
+            ReduceLife();
+        }
+        else if (other.CompareTag("Flag"))
+        {
+            SetCheckpoint(other.transform.position);
+        }else if (other.CompareTag("Trap"))
         {
             Debug.Log("trap");
             ReduceLife();
@@ -51,8 +55,13 @@ public class OutOfBound : MonoBehaviour
                 RespawnPlayer();
             }
         }
+        private void SetCheckpoint(Vector3 position)
+        {
+            checkpointPosition = position;
+            Debug.Log("Checkpoint set at position: " + checkpointPosition);
+        }
 
-        private void RespawnPlayer()
+    private void RespawnPlayer()
         {
         
         Debug.Log("detect");
@@ -62,7 +71,14 @@ public class OutOfBound : MonoBehaviour
         playerRigidbody.velocity = Vector3.zero; 
         playerRigidbody.angularVelocity = Vector3.zero; 
 
-        player.transform.position = startingPosition;
+        if (checkpointPosition != Vector3.zero)
+        {
+            player.transform.position = checkpointPosition;
+        }
+        else
+        {
+            player.transform.position = startingPosition;
+        }
     }
     }
 
