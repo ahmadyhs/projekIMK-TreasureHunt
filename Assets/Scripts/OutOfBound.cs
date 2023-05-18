@@ -58,6 +58,7 @@ public class OutOfBound : MonoBehaviour
             else
             {
                 lives.text = remainingLives.ToString();
+                PlayerPrefs.SetInt("PreviousSceneIndex", SceneManager.GetActiveScene().buildIndex);
                 RespawnPlayer();
             }
         }

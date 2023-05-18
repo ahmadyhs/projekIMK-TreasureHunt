@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
         float speed = moveSpeed;
         if (speedBoost) speed *= speedBoostModifier;
         transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * speed * Time.deltaTime * deaccelerationCurve.Evaluate(stopT);
+        
     }
     private void OnCollisionEnter(Collision other)
     {

@@ -2040,8 +2040,8 @@ MonoBehaviour:
   lives: {fileID: 1694026886}
   respawnPosition: {fileID: 0}
   targetScene:
-    sceneAsset: {fileID: 102900000, guid: be288e156c584fe42a30a5a23d3eb8b6, type: 3}
-    scenePath: Assets/Scenes/WinScene.unity
+    sceneAsset: {fileID: 102900000, guid: daf2f727a1e13334db021170cef28d07, type: 3}
+    scenePath: Assets/Scenes/LoseScene.unity
 --- !u!1001 &1654652805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2410,6 +2410,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6df9f278dd8ecd749bca69bba7958408, type: 3}
       propertyPath: m_TagString
       value: Flag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401335764443020502, guid: 6df9f278dd8ecd749bca69bba7958408, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6df9f278dd8ecd749bca69bba7958408, type: 3}
