@@ -1762,11 +1762,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counter: {fileID: 338035315}
---- !u!4 &1651304560 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 58cf741dd9b510042ab2b85ee005c134, type: 3}
-  m_PrefabInstance: {fileID: 123940740}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1651304561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1780,7 +1775,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLives: 3
-  respawnPosition: {fileID: 1651304560}
+  counter: {fileID: 338035315}
+  lives: {fileID: 1694026886}
+  respawnPosition: {fileID: 0}
   targetScene:
     sceneAsset: {fileID: 102900000, guid: be288e156c584fe42a30a5a23d3eb8b6, type: 3}
     scenePath: Assets/Scenes/WinScene.unity
