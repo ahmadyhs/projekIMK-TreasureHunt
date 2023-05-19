@@ -7,7 +7,6 @@ public class Timer : MonoBehaviour
 {
     public TextMeshProUGUI timer;
     private float startTime;
-    public float delay = 1f;
     private bool finished=false;
 
     void Start()
@@ -22,12 +21,8 @@ public class Timer : MonoBehaviour
             return;
         
             float t = Time.time - startTime;
-        if (elapsedTime < delay)
-            return;
 
-        float t = elapsedTime - delay;
-
-        string minutes = ((int)t / 60).ToString();
+            string minutes = ((int)t / 60).ToString();
             string seconds = (t % 60).ToString("f2");
 
             timer.text = minutes + ":" + seconds;
