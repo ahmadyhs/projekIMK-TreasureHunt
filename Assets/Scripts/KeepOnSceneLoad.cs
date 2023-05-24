@@ -1,22 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class KeepOnSceneLoad : MonoBehaviour
 {
     public int maxInstance = 1;
-    public string tag;
+    public string tagName;
 
     // Start is called before the first frame update
 
     private void Reset()
     {
-        tag = this.gameObject.tag;
+        tagName = this.gameObject.tag;
     }
     private void Awake()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(tagName);
 
         if (objs.Length > maxInstance)
         {

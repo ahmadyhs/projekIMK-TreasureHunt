@@ -7,28 +7,33 @@ public class PlayerController : MonoBehaviour
 {
     //public float rotation;
     public float moveSpeed;
+    private float originalMoveSpeed;
     public float speedBoostModifier;
     public float speedBoostRotationModifer;
     public float jumpspeed = 1f;
+    private float originalJumpSpeed;
+    private bool onGround = false;
     public bool jumpBoost = false;
     public bool speedBoost = false;
     public float rotationSpeed=1f;
     public Quaternion rotationTarget;
     public KeyCode jumpkey = KeyCode.Space;
-    float movementT;
-    float stopT;
-    float jumpT;
+    public float movementT;
+    public float stopT;
+    public float jumpT;
     bool isDirectionalKeyPressed = false;
     public AnimationCurve accelerationCurve;
     public AnimationCurve deaccelerationCurve;
     public AnimationCurve jumpAccelerationCurve;
     public AnimationCurve jumpBoostAccelerationCurve;
     bool isJumping = false;
-    Vector3 direction;
+    public Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
     {
+        originalMoveSpeed = moveSpeed;
+        originalJumpSpeed = jumpspeed;
         movementT = 0f;
         jumpT = 0.38f;
         stopT = 0f;
@@ -42,23 +47,17 @@ public class PlayerController : MonoBehaviour
         isDirectionalKeyPressed = direction != Vector3.zero;
         checkJump();
         updateRotationTarget();
+    }
+    private void LateUpdate()
+    {
         updateRotation();
         updatePosition();
-    }
-    private void FixedUpdate()
-    {
     }
 
     private void updateRotationTarget()
     {
         if(isDirectionalKeyPressed)
         rotationTarget = Quaternion.LookRotation(direction, transform.up);
-    }
-    private void updateRotation()
-    {
-        float speed = Time.deltaTime * rotationSpeed;
-        if (speedBoost) speed = 360f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationTarget, speed);
     }
     private void updateDirection()
     {
@@ -75,6 +74,12 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    private void updateRotation()
+    {
+        float speed = Time.deltaTime * rotationSpeed;
+        if (speedBoost) speed = 360f;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationTarget, speed);
+    }
     private void updatePosition()
     {
         if (isJumping)
@@ -83,10 +88,10 @@ public class PlayerController : MonoBehaviour
             AnimationCurve curve;
             if (jumpBoost) curve = jumpBoostAccelerationCurve;
             else curve = jumpAccelerationCurve;
-            transform.position = transform.position + transform.up * curve.Evaluate(jumpT) * Time.deltaTime * jumpspeed;
+            transform.position = transform.position + transform.up * curve.Evaluate(jumpT);
         }
         //else jjumpspeed= 0f;
-        jumpT += Time.deltaTime;
+        jumpT += Time.deltaTime * jumpspeed;
         if (isDirectionalKeyPressed)
         {
             stopT = 0f;
@@ -109,7 +114,20 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "ground")
         {
             isJumping = false;
-            transform.position = new Vector3(transform.position.x, other.transform.position.y,transform.position.z);
+            onGround = true;
+            transform.position = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
+        }
+        if (other.gameObject.tag == "box")
+        {
+            if (onGround)
+                moveSpeed = 0f;
+            else 
+                transform.position = new Vector3(transform.position.x, other.GetContact(1).point.y, transform.position.z);
+            isJumping = false;
+            if (isJumping)
+            {
+              //  jumpspeed = 0f;
+            }
         }
 
     }
@@ -118,6 +136,14 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "ground")
         {
             isJumping = true;
+            onGround = false;
+        }
+        if (other.gameObject.tag == "box")
+        {
+            moveSpeed = originalMoveSpeed;
+            //jumpspeed = originalJumpSpeed;
+            if (!onGround)
+                isJumping = true;
         }
     }
 

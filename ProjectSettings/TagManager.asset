@@ -10,6 +10,7 @@ TagManager:
   - Trap
   - OUB
   - Flag
+  - box
   layers:
   - Default
   - TransparentFX

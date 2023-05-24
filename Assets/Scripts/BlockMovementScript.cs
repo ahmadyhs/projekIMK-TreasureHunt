@@ -11,8 +11,9 @@ public class BlockMovementScript : MonoBehaviour
         // Check if the collision is with the player character
         if (collision.collider.CompareTag("Player"))
         {
-            Vector3 collisionNormal = collision.contacts[0].normal;
-            Vector3 displacement = collisionNormal * pushbackMagnitude;
+            Debug.Log("hmm");
+            Vector3 collisionNormal = collision.GetContact(0).normal;
+            Vector3 displacement = collisionNormal * -pushbackMagnitude;
             Vector3 newPosition = collision.collider.transform.position + displacement;
 
             // Set the new position for the character
