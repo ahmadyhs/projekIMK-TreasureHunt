@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public AnimationCurve jumpBoostAccelerationCurve;
     bool isJumping = false;
     public Vector3 direction;
+    public float acceleration = 0f;
     //public GameObject penggerakLeher;
 
     // Start is called before the first frame update
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        acceleration = accelerationCurve.Evaluate(movementT);
         updateDirection();
         isDirectionalKeyPressed = direction != Vector3.zero;
         checkJump();
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour
         {
             stopT = 0f;
             movementT += Time.deltaTime;
+            movementT = Mathf.Clamp01(movementT);
         }
         else
         {
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
         }
         float speed = moveSpeed;
         if (speedBoost) speed *= speedBoostModifier;
-        transform.position = transform.position + transform.forward * accelerationCurve.Evaluate(movementT) * speed * Time.deltaTime * deaccelerationCurve.Evaluate(stopT);
+        transform.position = transform.position + transform.forward * acceleration * speed * Time.deltaTime * deaccelerationCurve.Evaluate(stopT);
         
     }
     private void OnCollisionEnter(Collision other)
