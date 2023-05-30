@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AH = AdnanHelper;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public AnimationCurve jumpBoostAccelerationCurve;
     bool isJumping = false;
     public Vector3 direction;
+    //public GameObject penggerakLeher;
 
     // Start is called before the first frame update
     void Start()
@@ -56,12 +58,15 @@ public class PlayerController : MonoBehaviour
 
     private void updateRotationTarget()
     {
-        if(isDirectionalKeyPressed)
-        rotationTarget = Quaternion.LookRotation(direction, transform.up);
+        if (isDirectionalKeyPressed)
+        {
+            rotationTarget = Quaternion.LookRotation(direction, transform.up);
+        }
     }
     private void updateDirection()
     {
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        //penggerakLeher.transform.position = AH.lerp(penggerakLeher.transform.position, transform.position+direction*3f, 1f, 0f, 1f);
     }
     private void checkJump()
     {
