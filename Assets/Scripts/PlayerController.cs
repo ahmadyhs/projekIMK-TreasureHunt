@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float speedBoostModifier;
     public float speedBoostRotationModifer;
     public float jumpspeed = 1f;
+    public float jumpHeight = 4f;
     private float originalJumpSpeed;
     private bool onGround = false;
     public bool jumpBoost = false;
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
             AnimationCurve curve;
             if (jumpBoost) curve = jumpBoostAccelerationCurve;
             else curve = jumpAccelerationCurve;
-            transform.position = transform.position + transform.up * curve.Evaluate(jumpT);
+            transform.position = transform.position + transform.up * curve.Evaluate(jumpT) * jumpHeight;
         }
         //else jjumpspeed= 0f;
         jumpT += Time.deltaTime * jumpspeed;

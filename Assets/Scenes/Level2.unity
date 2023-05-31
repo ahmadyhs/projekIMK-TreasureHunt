@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17835459, g: 0.21723108, b: 0.27032936, a: 1}
+  m_IndirectSpecularColor: {r: 0.17835504, g: 0.21723178, b: 0.27033052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1300,15 +1300,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 58cf741dd9b510042ab2b85ee005c134, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 58cf741dd9b510042ab2b85ee005c134, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 58cf741dd9b510042ab2b85ee005c134, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.2
+      value: 15.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 58cf741dd9b510042ab2b85ee005c134, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9532,7 +9532,8 @@ MonoBehaviour:
   moveSpeed: 40
   speedBoostModifier: 2
   speedBoostRotationModifer: 6
-  jumpspeed: 196
+  jumpspeed: 1
+  jumpHeight: 4
   jumpBoost: 0
   speedBoost: 0
   rotationSpeed: 917.67
@@ -9647,6 +9648,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   direction: {x: 0, y: 0, z: 0}
+  acceleration: 0
 --- !u!136 &1651304553
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9670,8 +9672,8 @@ Rigidbody:
   m_GameObject: {fileID: 1651304548}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_Drag: 1000
+  m_AngularDrag: 1000
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
