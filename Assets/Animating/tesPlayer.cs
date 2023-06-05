@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor.Experimental;
 using UnityEngine;
 using AH = AdnanHelper;
 
@@ -46,6 +47,8 @@ public class tesPlayer : MonoBehaviour
     private bool angleTooMuch = false;
     private bool swapf = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,12 +67,12 @@ public class tesPlayer : MonoBehaviour
         temp.y = legsCOM.position.y;
         bodyCOM.position = temp;
 
-        legSpeed = 4f + (pc.moveSpeed / 3f) * pc.acceleration * 2f ;
+        legSpeed = 6f + (pc.moveSpeed / 3f) * pc.acceleration * 2f ;
         farThreshold = 1f + originalFarThreshold * (pc.acceleration ) * 2f;
 
         updateLegPriority();
-        Debug.Log("far foot (" + farthestFoot.name + ") distance = " + Vector3.Distance(farthestFoot.position, bodyCOM.position));
-        COMd = Vector3.Distance(legsCOM.position,bodyCOM.position);
+        Debug.Log("far foot (" + farthestFoot.name + ") distance = " + AH.xzDistance(farthestFoot.position, bodyCOM.position));
+        COMd = AH.xzDistance(legsCOM.position,bodyCOM.position);
 
         checkCOM();
         moveLegs();
@@ -81,7 +84,7 @@ public class tesPlayer : MonoBehaviour
 
     private void updateLegPriority()
     {
-        if (Vector3.Distance(leftTip.position, bodyCOM.position) < Vector3.Distance(rightTip.position, bodyCOM.position))
+        if (AH.xzDistance(leftTip.position, bodyCOM.position) < AH.xzDistance(rightTip.position, bodyCOM.position))
         {
             closestFoot = leftFoot;
             closestTarget = bodyLeftFoot;
@@ -113,7 +116,7 @@ public class tesPlayer : MonoBehaviour
                 if (movingFoot == rightFoot && pc.acceleration < 0.1f)
                 {
                     Debug.Log("change moving to right");
-                    if (COMd > 0.3f) moveT = 0.0001f;
+                    if (COMd > farThreshold) moveT = 0.0001f;
                         movingFoot = leftFoot;
                     footTargetPos = bodyLeftFoot.position;
                     footTargetRot = bodyLeftFoot.rotation;
@@ -121,7 +124,7 @@ public class tesPlayer : MonoBehaviour
                 else if (movingFoot == leftFoot && pc.acceleration < 0.1f)
                 {
                     Debug.Log("change moving to left");
-                    if (COMd > 0.3f) moveT = 0.0001f;
+                    if (COMd > farThreshold) moveT = 0.0001f;
                     movingFoot = rightFoot;
                     footTargetPos = bodyRightFoot.position;
                     footTargetRot = bodyRightFoot.rotation;
@@ -139,11 +142,12 @@ public class tesPlayer : MonoBehaviour
                 //TODO if left foot and accel set target to left foot body
                 //if (pc.acceleration == 0f && (footTargetPos != bodyLeftFoot.position && footTargetPos != bodyRightFoot.position)){footTargetPos = movingFoot == leftFoot ? bodyLeftFoot.position : bodyRightFoot.position; moveT= 0f;}
                 
-                moveT += Time.deltaTime * legSpeed / (Vector3.Distance(movingFoot.position, footTargetPos) + Mathf.Epsilon);
+                moveT += Time.deltaTime * legSpeed / (AH.xzDistance(movingFoot.position, footTargetPos) + Mathf.Epsilon);
                 moveT = Mathf.Clamp01(moveT);
                 Debug.Log("moving foot = " + movingFoot.name + " moveT = " + moveT);
                 Vector3 pos = Vector3.Lerp(movingFoot.position, footTargetPos, moveT);
-                pos.y = Mathf.Clamp(groundY+footLiftCurve.Evaluate(moveT) * footLift * (Vector3.Distance(movingFoot.position, footTargetPos) + 0.1f),0f,2f);
+                pos.y = groundY+footLiftCurve.Evaluate(moveT) * footLift * Mathf.Clamp((AH.xzDistance(movingFoot.position, footTargetPos) + 0.001f),0f,footLift);
+                Debug.Log("pos y = " + pos.y);
                 Quaternion rot = Quaternion.Lerp(movingFoot.rotation, footTargetRot, moveT);
                 movingFoot.position = pos;
                 movingFoot.rotation = rot;
@@ -178,24 +182,23 @@ public class tesPlayer : MonoBehaviour
                     swapf = false;
                 }
                 Debug.Log("movingfoot = somefoot");
-                if (Vector3.Distance(compar, bodyCOM.position) > farThreshold)
+                if (AH.xzDistance(compar, bodyCOM.position) > farThreshold)
                 {
                     //move farthest foot
                     movingFoot = farthestFoot; //isFirstLegMovement = true;
                     footTargetPos = farthestTarget.position;
-                    footTargetPos += transform.forward * Vector3.Distance(footTargetPos, movingFoot.position) * pc.acceleration * Mathf.Clamp01(Vector3.Dot(transform.forward, (bodyCOM.position - legsCOM.position).normalized)) * 0.9f;
                     footTargetRot = farthestTarget.rotation;
-
+                    footTargetPos += transform.forward * AH.xzDistance(footTargetPos, movingFoot.position) * pc.acceleration * Mathf.Clamp01(Vector3.Dot(movingFoot.forward, farthestTarget.forward)) * 0.9f;
                 }
                 else
                 {
                     //move closest foot
                     movingFoot = closestFoot; //isFirstLegMovement = true;
                     footTargetPos = closestTarget.position;
-
-                        footTargetPos += transform.forward * Vector3.Distance(footTargetPos, movingFoot.position) * pc.acceleration * Mathf.Clamp01(Vector3.Dot(transform.forward, (bodyCOM.position - legsCOM.position).normalized)) * 0.9f;
                     footTargetRot = closestTarget.rotation;
+                    footTargetPos += transform.forward * AH.xzDistance(footTargetPos, movingFoot.position) * pc.acceleration * Mathf.Clamp01(Vector3.Dot(movingFoot.forward, closestTarget.forward)) * 0.9f;
                 }
+                //overshoot
             }
             else
             {

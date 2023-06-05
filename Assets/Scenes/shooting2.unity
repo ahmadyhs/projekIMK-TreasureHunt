@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17835459, g: 0.21723108, b: 0.27032936, a: 1}
+  m_IndirectSpecularColor: {r: 0.17835504, g: 0.21723178, b: 0.27033052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3724,6 +3724,7 @@ MonoBehaviour:
   speedBoostModifier: 2
   speedBoostRotationModifer: 6
   jumpspeed: 1
+  jumpHeight: 4
   jumpBoost: 0
   speedBoost: 0
   rotationSpeed: 917.67
@@ -3838,6 +3839,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   direction: {x: 0, y: 0, z: 0}
+  acceleration: 0
 --- !u!54 &1651304554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3893,8 +3895,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLives: 3
-  counter: {fileID: 0}
-  lives: {fileID: 0}
+  counter: {fileID: 591618447}
+  lives: {fileID: 796747478}
   respawnPosition: {fileID: 0}
   targetScene:
     sceneAsset: {fileID: 102900000, guid: daf2f727a1e13334db021170cef28d07, type: 3}

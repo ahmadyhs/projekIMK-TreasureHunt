@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour
             rotationTarget = Quaternion.LookRotation(direction, transform.up);
         }
     }
+    public bool isRotated()
+    {
+        return transform.rotation == rotationTarget;
+    }
     private void updateDirection()
     {
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -95,7 +99,7 @@ public class PlayerController : MonoBehaviour
             AnimationCurve curve;
             if (jumpBoost) curve = jumpBoostAccelerationCurve;
             else curve = jumpAccelerationCurve;
-            transform.position = transform.position + transform.up * curve.Evaluate(jumpT) * jumpHeight;
+            transform.position = transform.position + transform.up * curve.Evaluate(jumpT) * Time.deltaTime * jumpHeight;
         }
         //else jjumpspeed= 0f;
         jumpT += Time.deltaTime * jumpspeed;
