@@ -51,7 +51,7 @@ Shader "Custom/NewSurfaceShader"
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             // Albedo comes from a texture tinted by color
-            float darkenFactor = clamp(_Offset + IN.worldPos.y * _Grad,-1000.0,1.0);
+            float darkenFactor = clamp(_Offset + IN.worldPos.y * _Grad,0.0,1.0);
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
             o.Albedo = c.rgb  * darkenFactor;
             // Metallic and smoothness come from slider variables

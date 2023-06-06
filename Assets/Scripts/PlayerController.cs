@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public float jumpspeed = 1f;
     public float jumpHeight = 4f;
     private float originalJumpSpeed;
-    private bool onGround = false;
+    public bool onGround = false;
     public bool jumpBoost = false;
     public bool speedBoost = false;
     public float rotationSpeed=1f;
@@ -28,14 +28,16 @@ public class PlayerController : MonoBehaviour
     public AnimationCurve deaccelerationCurve;
     public AnimationCurve jumpAccelerationCurve;
     public AnimationCurve jumpBoostAccelerationCurve;
-    bool isJumping = false;
+    public bool isJumping = false;
     public Vector3 direction;
     public float acceleration = 0f;
+    private float groundY;
     //public GameObject penggerakLeher;
 
     // Start is called before the first frame update
     void Start()
     {
+        groundY =transform.position.y;
         originalMoveSpeed = moveSpeed;
         originalJumpSpeed = jumpspeed;
         movementT = 0f;
@@ -95,11 +97,20 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping)
         {
+            float gravity = 0f;
+            if (jumpT > 1)
+            {
+                groundY = transform.position.y;
+                gravity = 1f;
+            }
             movementT = 1f;
             AnimationCurve curve;
             if (jumpBoost) curve = jumpBoostAccelerationCurve;
             else curve = jumpAccelerationCurve;
-            transform.position = transform.position + transform.up * curve.Evaluate(jumpT) * Time.deltaTime * jumpHeight;
+            Vector3 pos;
+            pos = transform.position;
+            pos.y = groundY + curve.Evaluate(jumpT) * jumpHeight - gravity;
+            transform.position = pos;
         }
         //else jjumpspeed= 0f;
         jumpT += Time.deltaTime * jumpspeed;
@@ -128,13 +139,17 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
             onGround = true;
             transform.position = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
+            groundY = transform.position.y;
         }
         if (other.gameObject.tag == "box")
         {
             if (onGround)
                 moveSpeed = 0f;
-            else 
+            else
+            {
                 transform.position = new Vector3(transform.position.x, other.GetContact(1).point.y, transform.position.z);
+                groundY = transform.position.y;
+            }
             isJumping = false;
             if (isJumping)
             {
