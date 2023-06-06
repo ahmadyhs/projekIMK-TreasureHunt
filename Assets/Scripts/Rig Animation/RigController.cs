@@ -48,13 +48,14 @@ public class RigController: MonoBehaviour
     public float originalLegSpeed = 3f;
     private Vector3 frowad;
     private bool drawit = false;
+    private float groundYoffset;
 
     // Start is called before the first frame update
     void Start()
     {
+        groundYoffset = leftFoot.target.position.y - pc.groundY;
         initialAngle = (AH.Angle(leftFoot.forward, rightFoot.forward)-2f);
         //originalLegsDotProduct = Vector3.Dot(leftFoot.forward, rightFoot.forward);
-        groundY = leftFoot.target.position.y;
     }
     int checkAngle()
     {
@@ -100,6 +101,7 @@ public class RigController: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        groundY = pc.groundY + groundYoffset;
         //footAngle = AH.Angle(leftFoot.forward, rightFoot.forward);
         Time.timeScale = times;
 
@@ -162,8 +164,9 @@ public class RigController: MonoBehaviour
 
             //Debug.Log("moving foot = " + movingFoot.name + " moveT = " + moveT);
             Vector3 pos = Vector3.Lerp(movingFoot.startPos, movingFoot.targetPos, moveT);
-            //pos.y += groundY + (footLiftCurve.Evaluate(moveT) * AH.xzDistance(movingFoot.startPos, movingFoot.targetPos) * footLift);
+            pos.y = groundY + (footLiftCurve.Evaluate(moveT) * AH.xzDistance(movingFoot.startPos, movingFoot.targetPos) * footLift);
             //Debug.Log("pos y = " + pos.y);
+            //pos.y = groundY;
             Quaternion rot = Quaternion.Lerp(movingFoot.startRot, movingFoot.targetRot, moveT);
             Quaternion originalRot = movingFoot.rotation;
             movingFoot.rotation = rot;

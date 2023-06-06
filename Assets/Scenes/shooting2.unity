@@ -2693,13 +2693,13 @@ MonoBehaviour:
   pc: {fileID: 448206186}
   bodyCOM: {fileID: 2117459797}
   legsCOM: {fileID: 536488503}
-  originalFarThreshold: 0.95
+  originalFarThreshold: 0.5
   farThreshold: 0
   bodyCOMf: 1.5
   legsCOMd: 0.6
   COMd: 0
   legSpeed: 5
-  footLift: 2
+  footLift: 0.17
   footCircleRadius: 3.4
   thickness: 1
   footRotateThresholdAngle: 120
@@ -2885,6 +2885,7 @@ MonoBehaviour:
   isJumping: 0
   direction: {x: 0, y: 0, z: 0}
   acceleration: 0
+  groundY: 0
 --- !u!4 &448206187
 Transform:
   m_ObjectHideFlags: 0
@@ -9074,6 +9075,7 @@ MonoBehaviour:
   isJumping: 0
   direction: {x: 0, y: 0, z: 0}
   acceleration: 0
+  groundY: 0
 --- !u!54 &1651304554
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool isJumping = false;
     public Vector3 direction;
     public float acceleration = 0f;
-    private float groundY;
+    public float groundY;
     //public GameObject penggerakLeher;
 
     // Start is called before the first frame update
