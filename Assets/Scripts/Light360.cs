@@ -13,12 +13,15 @@ public class Light360 : MonoBehaviour
     private float originalXAngle;
     public float maxSpotAngle = 50f;
     private float originalSpotAngle;
+
     // Start is called before the first frame update
     void Start()
     {
+
         originalXAngle = transform.localEulerAngles.x;
         light = GetComponent<Light>();
         originalSpotAngle = light.spotAngle;
+
         rotTarget = Quaternion.LookRotation(Vector3.down);
         rotOffset = Quaternion.RotateTowards(rotTarget, transform.rotation, 360);
     }
@@ -26,6 +29,7 @@ public class Light360 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //transform.rotation = t
         float jumpT = Mathf.Clamp01(pc.jumpT);
         //shadowStrength = 1f - jumpT;

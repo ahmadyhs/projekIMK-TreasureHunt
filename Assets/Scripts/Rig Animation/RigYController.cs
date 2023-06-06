@@ -14,7 +14,7 @@ public class RigYController : MonoBehaviour
     public float weifh;
     public float offy;
     public float originalDistance;
-    public Transform stand;
+    public RigController stand;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +34,8 @@ public class RigYController : MonoBehaviour
         transform.localPosition = AH.lerp(transform.localPosition, b, 0f, 1f, 0f);
          a = Vector3.Lerp(a, target3.position, 0.5f);
         a = AH.lerp(transform.position, a, 1f, 0f, 1f);
-        transform.position = a;
+        if(!stand.pc.isJumping)
+            transform.position = a;
         a = AH.lerp(anchor.position,target.position,0f,1f,0f);
         //Debug.Log("kakian = "+ (( AH.getAcPythagoras(a, target.position, anchor.position))));
     }

@@ -1004,6 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121119693}
   - component: {fileID: 121119694}
+  - component: {fileID: 121119695}
   m_Layer: 0
   m_Name: Area Light (8)
   m_TagString: Untagged
@@ -1088,6 +1089,21 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &121119695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121119692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4064c0653dc13499edf69fbefc17c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VariationAmount: 1.15
+  MaxAmplitude: 3
+  Frequency: 0.17
 --- !u!1001 &123940740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6675,7 +6691,7 @@ MonoBehaviour:
   weifh: 0.35
   offy: -0.4
   originalDistance: 0
-  stand: {fileID: 448206187}
+  stand: {fileID: 448206185}
 --- !u!114 &1160836596
 MonoBehaviour:
   m_ObjectHideFlags: 0
