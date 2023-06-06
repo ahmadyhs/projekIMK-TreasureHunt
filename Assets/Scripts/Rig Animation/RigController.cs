@@ -69,8 +69,8 @@ public class RigController: MonoBehaviour
         {
             drawit =  true;
             Vector3 crossProduct = Vector3.Cross(leftFoot.forward, rightFoot.forward);
-            //Debug.Log("cross = " + crossProduct);
-            Debug.Log(movingFoot.name +" angle too high = " + leftFoot.name + leftFoot.forward +rightFoot.name + rightFoot.forward.ToString() + " cross = " + crossProduct);
+            ////Debug.Log("cross = " + crossProduct);
+            //Debug.Log(movingFoot.name +" angle too high = " + leftFoot.name + leftFoot.forward +rightFoot.name + rightFoot.forward.ToString() + " cross = " + crossProduct);
             return (true);
 
         }
@@ -106,10 +106,10 @@ public class RigController: MonoBehaviour
         legSpeed = originalLegSpeed * pc.moveSpeed / 10f;
         //legSpeed = originalLegSpeed ;
         farThreshold = 1f + originalFarThreshold * (pc.acceleration ) * 2f;
-        //Debug.Log("anglOK " + checkAngle());
+        ////Debug.Log("anglOK " + checkAngle());
         calculateCOM();
         updateLegPriority();
-        //Debug.Log("far foot (" + farthestFoot.name + ") distance = " + AH.xzDistance(farthestFoot.position, bodyCOM.position));
+        ////Debug.Log("far foot (" + farthestFoot.name + ") distance = " + AH.xzDistance(farthestFoot.position, bodyCOM.position));
         COMd = AH.xzDistance(legsCOM.position,bodyCOM.position);
 
         checkCOM();
@@ -132,7 +132,7 @@ public class RigController: MonoBehaviour
 
     private void moveLegs()
     {
-        Debug.Log("move t = " + moveT);
+        //Debug.Log("move t = " + moveT);
         if (moveT >= 1f)
         {
             if (movingFoot == null)
@@ -142,7 +142,7 @@ public class RigController: MonoBehaviour
             moveT = 0f;
             if (pc.acceleration < 0.1f && pc.isRotated())
             {
-                Debug.Log("change moving to " + movingFoot.otherFoot.name);
+                //Debug.Log("change moving to " + movingFoot.otherFoot.name);
                 if (COMd > 0.3f) moveT = 0.0001f;
                 movingFoot = movingFoot.otherFoot;
                 movingFoot.updateTarget();
@@ -160,10 +160,10 @@ public class RigController: MonoBehaviour
             //TODO if left foot and accel set target to left foot body
             //if (pc.acceleration == 0f && (footTargetPos != bodyLeftFoot.position && footTargetPos != bodyRightFoot.position)){footTargetPos = movingFoot == leftFoot ? bodyLeftFoot.position : bodyRightFoot.position; moveT= 0f;}
 
-            Debug.Log("moving foot = " + movingFoot.name + " moveT = " + moveT);
+            //Debug.Log("moving foot = " + movingFoot.name + " moveT = " + moveT);
             Vector3 pos = Vector3.Lerp(movingFoot.startPos, movingFoot.targetPos, moveT);
             //pos.y += groundY + (footLiftCurve.Evaluate(moveT) * AH.xzDistance(movingFoot.startPos, movingFoot.targetPos) * footLift);
-            Debug.Log("pos y = " + pos.y);
+            //Debug.Log("pos y = " + pos.y);
             Quaternion rot = Quaternion.Lerp(movingFoot.startRot, movingFoot.targetRot, moveT);
             Quaternion originalRot = movingFoot.rotation;
             movingFoot.rotation = rot;
@@ -189,16 +189,16 @@ public class RigController: MonoBehaviour
                 movingFoot.updateTarget();
                 if (angleStatus == 1)
                 {
-                    //Debug.Log("angle too high = " + AH.Angle(rot * Vector3.forward, movingFoot.forward));
+                    ////Debug.Log("angle too high = " + AH.Angle(rot * Vector3.forward, movingFoot.forward));
                     Quaternion rot2 = Quaternion.RotateTowards(movingFoot.rotation, movingFoot.otherFoot.rotation, 90f);
                     if (rot2== movingFoot.rotation)
                         rot2 = Quaternion.RotateTowards(movingFoot.rotation, movingFoot.otherFoot.targetRot, 90f);
-                    Debug.Log("this called" + movingFoot.otherFoot.name);
+                    //Debug.Log("this called" + movingFoot.otherFoot.name);
                     movingFoot.targetRot = rot2;
                     //movingFoot.targetPos = movingFoot.position;
                     //movingFoot.targetPos = Vector3.Lerp(movingFoot.position,movingFoot.target.position,0.5f);
                 }
-                else Debug.Log("not called this");
+                //else Debug.Log("not called this");
                 frowad = (movingFoot.targetRot * Vector3.forward);
                 return;
             }
@@ -212,16 +212,16 @@ public class RigController: MonoBehaviour
 
         if (moveT <= 0f)
         {
-            Debug.Log("anglefoot down");
+            //Debug.Log("anglefoot down");
             //else 
             //if (angleTooMuch && checkAngle())
             //    {
             //        angleTooMuch = false;
-            //        Debug.Log("angle normal" + AH.Angle(leftFoot.forward, rightFoot.forward));
+            ////        Debug.Log("angle normal" + AH.Angle(leftFoot.forward, rightFoot.forward));
             //    }
             //if (swapf)
             //{
-            //    Debug.Log("(angle too low)swapped " + movingFoot.name + " to " + movingFoot.otherFoot.name);
+            ////    Debug.Log("(angle too low)swapped " + movingFoot.name + " to " + movingFoot.otherFoot.name);
             //    movingFoot = movingFoot.otherFoot;
             //    movingFoot.updateTarget();
             //    swapf = false;
@@ -229,7 +229,7 @@ public class RigController: MonoBehaviour
             //}
             if (COMd > farThreshold )
             {
-                //Debug.Log("movingfoot = somefoot");
+                ////Debug.Log("movingfoot = somefoot");
                 //if (AH.xzDistance(farthestFoot.tip.position, bodyCOM.position) > farThreshold)
                 //{
                 //    //move farthest foot
@@ -247,7 +247,7 @@ public class RigController: MonoBehaviour
             }
             else
             {
-                Debug.Log("movingfoot = null");
+                //Debug.Log("movingfoot = null");
                 movingFoot = null;
             }
             
@@ -286,6 +286,6 @@ public class RigController: MonoBehaviour
         UnityEditor.Handles.DrawBezier(startPoint, endPoint, endPoint, startPoint, Color.green, null, 10f);
         endPoint = startPoint + movingFoot.forward* 10f;
         UnityEditor.Handles.DrawBezier(startPoint, endPoint, endPoint, startPoint, Color.white, null, 5f);
-        Debug.Log("the white is = " + movingFoot.name);
+        //Debug.Log("the white is = " + movingFoot.name);
     }
 }

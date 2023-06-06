@@ -36,7 +36,7 @@ public class RigYController : MonoBehaviour
         a = AH.lerp(transform.position, a, 1f, 0f, 1f);
         transform.position = a;
         a = AH.lerp(anchor.position,target.position,0f,1f,0f);
-        Debug.Log("kakian = "+ (( AH.getAcPythagoras(a, target.position, anchor.position))));
+        //Debug.Log("kakian = "+ (( AH.getAcPythagoras(a, target.position, anchor.position))));
     }
     private void OnDrawGizmos()
     {
