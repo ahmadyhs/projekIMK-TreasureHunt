@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DynamicIntensity : MonoBehaviour
 {
-    private float originalIntensity;
+    public float originalIntensity;
     private Light light;
     private NaturalSineWave sin;
     private float t;

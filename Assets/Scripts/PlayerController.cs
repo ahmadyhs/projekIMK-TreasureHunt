@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using AH = AdnanHelper;
 
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 direction;
     public float acceleration = 0f;
     public float groundY;
+    public float fuel = 20f;
+    public float fuelDecaySpeed = 1f;
+    private GameObject latestBox;
     //public GameObject penggerakLeher;
 
     // Start is called before the first frame update
@@ -43,11 +47,13 @@ public class PlayerController : MonoBehaviour
         movementT = 0f;
         jumpT = 0.38f;
         stopT = 0f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        fuel -= Time.deltaTime * fuelDecaySpeed;
         acceleration = accelerationCurve.Evaluate(movementT);
         updateDirection();
         isDirectionalKeyPressed = direction != Vector3.zero;
@@ -143,14 +149,21 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "box")
         {
-            if (onGround)
+            FuelTank ft = other.gameObject.GetComponent<FuelTank>();
+            if (ft != null) 
+            {
+                if (ft.active) fuel = Mathf.Max(fuel,ft.fuelAmount);
+            }
+            if (other.GetContact(1).normal != Vector3.up)
                 moveSpeed = 0f;
             else
             {
+                Debug.Log("lohe");
                 transform.position = new Vector3(transform.position.x, other.GetContact(1).point.y, transform.position.z);
                 groundY = transform.position.y;
-            }
+                latestBox = other.gameObject;
             isJumping = false;
+            }
             if (isJumping)
             {
               //  jumpspeed = 0f;
@@ -169,11 +182,14 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = originalMoveSpeed;
             //jumpspeed = originalJumpSpeed;
-            if (!onGround)
-                isJumping = true;
+            if(other.gameObject == latestBox)
+            {
+                if (!onGround)
+                    isJumping = true;
+                latestBox = null;
+                Debug.Log("lohe exit");
+            }
         }
     }
-
-    
     
 }
