@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AH = AdnanHelper;
 
-public class follow : MonoBehaviour
+public class FollowPosition : MonoBehaviour
 {
     public Transform target;
     public Vector3 modifier;

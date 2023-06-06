@@ -54,7 +54,7 @@ public class RigController: MonoBehaviour
     {
         initialAngle = (AH.Angle(leftFoot.forward, rightFoot.forward)-2f);
         //originalLegsDotProduct = Vector3.Dot(leftFoot.forward, rightFoot.forward);
-        groundY = leftFoot.target     .position.y;
+        groundY = leftFoot.target.position.y;
     }
     int checkAngle()
     {
@@ -150,19 +150,19 @@ public class RigController: MonoBehaviour
         }
         else
         {
-            moveT += Time.deltaTime * legSpeed * Mathf.Clamp((AH.xzDistance(movingFoot.startPos, movingFoot.target.position)*4f+Vector3.Angle(movingFoot.startRot * Vector3.forward,movingFoot.target.rotation * Vector3.forward)/180f) + 0.001f,0.1f,2f); ;
-            moveT = Mathf.Clamp01(moveT);
             if (movingFoot == null)
             {
                 moveT= 1f;
                 return;
             }
+            moveT += Time.deltaTime * legSpeed * Mathf.Clamp((AH.xzDistance(movingFoot.startPos, movingFoot.target.position)*4f+Vector3.Angle(movingFoot.startRot * Vector3.forward,movingFoot.target.rotation * Vector3.forward)/180f) + 0.001f,0.1f,2f); ;
+            moveT = Mathf.Clamp01(moveT);
             //TODO if left foot and accel set target to left foot body
             //if (pc.acceleration == 0f && (footTargetPos != bodyLeftFoot.position && footTargetPos != bodyRightFoot.position)){footTargetPos = movingFoot == leftFoot ? bodyLeftFoot.position : bodyRightFoot.position; moveT= 0f;}
 
             Debug.Log("moving foot = " + movingFoot.name + " moveT = " + moveT);
             Vector3 pos = Vector3.Lerp(movingFoot.startPos, movingFoot.targetPos, moveT);
-            //pos.y += groundY + (footLiftCurve.Evaluate(moveT) * AH.xzDistance(movingFoot.startPos, movingFoot.targetPos) * footLift);   
+            //pos.y += groundY + (footLiftCurve.Evaluate(moveT) * AH.xzDistance(movingFoot.startPos, movingFoot.targetPos) * footLift);
             Debug.Log("pos y = " + pos.y);
             Quaternion rot = Quaternion.Lerp(movingFoot.startRot, movingFoot.targetRot, moveT);
             Quaternion originalRot = movingFoot.rotation;
@@ -278,7 +278,10 @@ public class RigController: MonoBehaviour
         Vector3 endPoint;
         endPoint = bodyCOM.position;
         drawit= false;
-        Vector3 startPoint = movingFoot.position;
+        Vector3 startPoint;
+        if (movingFoot != null)
+            startPoint = movingFoot.position;
+        else return;
         endPoint = startPoint + frowad.normalized * 10f;
         UnityEditor.Handles.DrawBezier(startPoint, endPoint, endPoint, startPoint, Color.green, null, 10f);
         endPoint = startPoint + movingFoot.forward* 10f;

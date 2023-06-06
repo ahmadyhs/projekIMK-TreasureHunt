@@ -32,7 +32,7 @@ public class RigFoot : MonoBehaviour
     {
         this.startPos = transform.position;
         this.startRot = transform.rotation;
-        this.targetPos = target.position;
+        this.targetPos = AH.lerp(transform.position, target.position, 1f, 0f, 1f);
         //this.targetPos = AH.ClampPointToLine(target.position, otherFoot.position + getOtherFootDir()*2f, transform.position,transform.position+ getOtherFootDir());
         this.targetRot = target.rotation;
     }

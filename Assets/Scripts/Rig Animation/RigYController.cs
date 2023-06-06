@@ -4,7 +4,7 @@ using System.Net;
 using UnityEngine;
 using AH = AdnanHelper;
 
-public class kaki : MonoBehaviour
+public class RigYController : MonoBehaviour
 {
     public Transform target;
 

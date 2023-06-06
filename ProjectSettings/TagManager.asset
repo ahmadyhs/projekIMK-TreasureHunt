@@ -15,10 +15,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LevelMeshGenerator
   - Water
   - UI
-  - 
+  - InGameGizmo
   - 
   - 
   - 

@@ -94,10 +94,11 @@ public class OutOfBound : MonoBehaviour
             }
 
             // Adjust the respawn position to be slightly above the starting position
-            float respawnOffset = 0.5f;
+            float respawnOffset = 15.5f;
             respawnPosition += Vector3.up * respawnOffset;
 
             player.transform.position = respawnPosition;
+
 
             Invoke("ResetRespawn", 0.5f);
         }
