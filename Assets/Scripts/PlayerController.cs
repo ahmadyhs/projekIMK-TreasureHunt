@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public float fuel = 20f;
     public float fuelDecaySpeed = 1f;
     private GameObject latestBox;
+    private int boxCount = 0;
     //public GameObject penggerakLeher;
 
     // Start is called before the first frame update
@@ -154,22 +155,30 @@ public class PlayerController : MonoBehaviour
             {
                 if (ft.active) fuel = Mathf.Max(fuel,ft.fuelAmount);
             }
-            if (other.GetContact(1).normal != Vector3.up)
+                boxCount += 1;
+            if (other.GetContact(0).normal != Vector3.up)
                 moveSpeed = 0f;
             else
             {
-                Debug.Log("lohe");
-                transform.position = new Vector3(transform.position.x, other.GetContact(1).point.y, transform.position.z);
+                //Debug.Log("lohe");
+                if (isJumping)
+                {
+                  //  jumpspeed = 0f;
+                transform.position = new Vector3(transform.position.x, other.GetContact(0).point.y, transform.position.z);
                 groundY = transform.position.y;
+                }
                 latestBox = other.gameObject;
             isJumping = false;
             }
-            if (isJumping)
-            {
-              //  jumpspeed = 0f;
-            }
         }
 
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.tag == "box")
+            if (other.GetContact(0).normal == Vector3.up)
+                if (latestBox == null) latestBox = other.gameObject;
     }
     private void OnCollisionExit(Collision other)
     {
@@ -182,12 +191,14 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = originalMoveSpeed;
             //jumpspeed = originalJumpSpeed;
+            //if (other.GetContact(0).normal == Vector3.up)
+                boxCount -= 1;
             if(other.gameObject == latestBox)
             {
-                if (!onGround)
+                if (!onGround && boxCount == 0)
                     isJumping = true;
                 latestBox = null;
-                Debug.Log("lohe exit");
+                //Debug.Log("lohe exit");
             }
         }
     }

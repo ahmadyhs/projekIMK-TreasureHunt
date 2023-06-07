@@ -2736,7 +2736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23306774265283289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34, y: 0, z: 1016}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3824,7 +3824,7 @@ MonoBehaviour:
   moveSpeed: 20
   speedBoostModifier: 2
   speedBoostRotationModifer: 6
-  jumpspeed: 1
+  jumpspeed: 1.5
   jumpHeight: 24
   onGround: 0
   jumpBoost: 0

@@ -30936,8 +30936,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetScene:
-    sceneAsset: {fileID: 102900000, guid: 4e21e6fa893a2d246bfeabe3c1b3e0e2, type: 3}
-    scenePath: Assets/Scenes/shooting2.unity
+    sceneAsset: {fileID: 102900000, guid: 44d01f52bf626e044849db8a7f57d6d5, type: 3}
+    scenePath: Assets/Scenes/Cave - Level 1.unity
 --- !u!114 &2010987428
 MonoBehaviour:
   m_ObjectHideFlags: 0

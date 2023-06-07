@@ -8563,14 +8563,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 23306774581105057, guid: 3c49e71b002fc4f4a95bfd43aec59f23, type: 3}
-      propertyPath: jumpspeed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 23306774581105057, guid: 3c49e71b002fc4f4a95bfd43aec59f23, type: 3}
-      propertyPath: jumpHeight
-      value: 24
-      objectReference: {fileID: 0}
     - target: {fileID: 23306774581105060, guid: 3c49e71b002fc4f4a95bfd43aec59f23, type: 3}
       propertyPath: timer
       value: 
