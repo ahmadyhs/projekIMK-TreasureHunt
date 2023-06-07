@@ -719,6 +719,10 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3063085054943236724, guid: 360e1d67473b0ae44b5ff90c9ec4b9e7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3888513881461835943, guid: 360e1d67473b0ae44b5ff90c9ec4b9e7, type: 3}
       propertyPath: caveIntensity
       value: 0.06
