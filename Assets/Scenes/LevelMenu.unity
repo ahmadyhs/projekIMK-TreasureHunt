@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18141308, g: 0.22308138, b: 0.2844427, a: 1}
+  m_IndirectSpecularColor: {r: 0.1814136, g: 0.2230819, b: 0.28444365, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22556,8 +22556,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetScene:
-    sceneAsset: {fileID: 102900000, guid: 4cc1705e879feed448966fe1212e8aee, type: 3}
-    scenePath: Assets/Scenes/Level2.unity
+    sceneAsset: {fileID: 102900000, guid: c94f3dcce23413f4bb1e309b2bc26296, type: 3}
+    scenePath: Assets/Scenes/Cave - Level 2.unity
 --- !u!114 &1500570805
 MonoBehaviour:
   m_ObjectHideFlags: 0

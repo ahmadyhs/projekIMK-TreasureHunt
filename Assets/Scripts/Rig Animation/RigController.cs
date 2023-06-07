@@ -103,7 +103,7 @@ public class RigController: MonoBehaviour
     {
         groundY = pc.groundY + groundYoffset;
         //footAngle = AH.Angle(leftFoot.forward, rightFoot.forward);
-        Time.timeScale = times;
+        //Time.timeScale = times;
 
         legSpeed = originalLegSpeed * pc.moveSpeed / 10f;
         //legSpeed = originalLegSpeed ;

@@ -52,7 +52,7 @@ public class OutOfBound : MonoBehaviour
             if (remainingLives <= 0)
             {
                 PlayerPrefs.SetString("CoinCollected", counter.text);
-                GameObject.Find("character").SendMessage("StopTimerAndStoreTime");
+                GetComponent<Timer>().StopTimerAndStoreTime();
                 SceneManager.LoadScene(targetScene);
             }
             else

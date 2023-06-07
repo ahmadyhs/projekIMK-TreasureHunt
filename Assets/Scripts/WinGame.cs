@@ -11,7 +11,7 @@ public class WinGame : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameObject.Find("character").SendMessage("StopTimerAndStoreTime");
+            other.gameObject.GetComponent<Timer>().StopTimerAndStoreTime();
             SceneManager.LoadScene(nextScene);
         }
     }
