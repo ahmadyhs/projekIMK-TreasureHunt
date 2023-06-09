@@ -11,6 +11,8 @@ public class OutOfBound : MonoBehaviour
     private Vector3 startingPosition;
     public TextMeshProUGUI counter;
     public TextMeshProUGUI lives;
+    public TextMeshProUGUI checkpointText; // Reference to the checkpoint text
+    public float checkpointTextDuration = 3f; // Duration in seconds to show the checkpoint text
     public Transform respawnPosition;
     public SceneReference targetScene;
     private Vector3 checkpointPosition;
@@ -21,6 +23,7 @@ public class OutOfBound : MonoBehaviour
         remainingLives = maxLives;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         startingPosition = player.transform.position;
+        checkpointText.gameObject.SetActive(false); // Initially set the checkpoint text to inactive
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,9 +39,7 @@ public class OutOfBound : MonoBehaviour
         }
         else if (other.CompareTag("Trap"))
         {
-
             ReduceLife();
-
         }
     }
 
@@ -68,42 +69,46 @@ public class OutOfBound : MonoBehaviour
     {
         checkpointPosition = position;
         Debug.Log("Checkpoint set at position: " + checkpointPosition);
+        StartCoroutine(ShowCheckpointText());
     }
 
-    
+    private IEnumerator ShowCheckpointText()
+    {
+        checkpointText.gameObject.SetActive(true); // Set the checkpoint text to active
+        yield return new WaitForSeconds(checkpointTextDuration);
+        checkpointText.gameObject.SetActive(false); // Set the checkpoint text to inactive after the duration
+    }
 
-    
-        private void RespawnPlayer()
+    private void RespawnPlayer()
+    {
+        Debug.Log("Respawn");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
+
+        playerRigidbody.velocity = Vector3.zero;
+        playerRigidbody.angularVelocity = Vector3.zero;
+
+        Vector3 respawnPosition = Vector3.zero;
+
+        if (checkpointPosition != Vector3.zero)
         {
-            Debug.Log("Respawn");
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
-
-            playerRigidbody.velocity = Vector3.zero;
-            playerRigidbody.angularVelocity = Vector3.zero;
-
-            Vector3 respawnPosition = Vector3.zero;
-
-            if (checkpointPosition != Vector3.zero)
-            {
-                respawnPosition = checkpointPosition;
-            }
-            else
-            {
-                respawnPosition = startingPosition;
-            }
-
-            // Adjust the respawn position to be slightly above the starting position
-            float respawnOffset = 15.5f;
-            respawnPosition += Vector3.up * respawnOffset;
-
-            player.transform.position = respawnPosition;
-
-
-            Invoke("ResetRespawn", 0.5f);
+            respawnPosition = checkpointPosition;
+        }
+        else
+        {
+            respawnPosition = startingPosition;
         }
 
-        private void ResetRespawn()
+        // Adjust the respawn position to be slightly above the starting position
+        float respawnOffset = 15.5f;
+        respawnPosition += Vector3.up * respawnOffset;
+
+        player.transform.position = respawnPosition;
+
+        Invoke("ResetRespawn", 0.5f);
+    }
+
+    private void ResetRespawn()
     {
         isRespawning = false;
     }
