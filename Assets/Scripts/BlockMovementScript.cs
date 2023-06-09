@@ -12,7 +12,7 @@ public class BlockMovementScript : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             Debug.Log("hmm");
-            Vector3 collisionNormal = collision.GetContact(1).normal;
+            Vector3 collisionNormal = collision.GetContact(0).normal;
             Vector3 displacement = collisionNormal * -pushbackMagnitude;
             Vector3 newPosition = collision.collider.transform.position + displacement;
 
