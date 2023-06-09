@@ -6,6 +6,7 @@ using TMPro;
 public class CollectCoin: MonoBehaviour
 {
     public TextMeshProUGUI counter;
+    public AudioSource coinSoundEffect;
     private int count = 0;
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +15,7 @@ public class CollectCoin: MonoBehaviour
             Destroy(other.gameObject);
             count++;
             counter.text= count.ToString();
+            coinSoundEffect.Play();
             PlayerPrefs.SetString("CoinCollected", counter.text);
         }
     }

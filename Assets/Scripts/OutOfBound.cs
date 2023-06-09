@@ -18,7 +18,8 @@ public class OutOfBound : MonoBehaviour
     private Vector3 checkpointPosition;
     private bool isRespawning = false;
 
-    public AudioSource checkpointSoundEffect; // Reference to the checkpoint sound effect AudioSource
+    public AudioSource checkpointSoundEffect;
+    public AudioSource trapSoundEffect;
 
     private void Start()
     {
@@ -41,6 +42,10 @@ public class OutOfBound : MonoBehaviour
         }
         else if (other.CompareTag("Trap"))
         {
+            if (trapSoundEffect != null)
+            {
+                trapSoundEffect.Play();
+            }
             ReduceLife();
         }
     }
