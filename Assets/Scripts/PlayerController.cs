@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         movementT = 0f;
         jumpT = 0.38f;
         stopT = 0f;
-
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
