@@ -18,6 +18,8 @@ public class OutOfBound : MonoBehaviour
     private Vector3 checkpointPosition;
     private bool isRespawning = false;
 
+    public AudioSource checkpointSoundEffect; // Reference to the checkpoint sound effect AudioSource
+
     private void Start()
     {
         remainingLives = maxLives;
@@ -70,6 +72,12 @@ public class OutOfBound : MonoBehaviour
         checkpointPosition = position;
         Debug.Log("Checkpoint set at position: " + checkpointPosition);
         StartCoroutine(ShowCheckpointText());
+
+        // Play the checkpoint sound effect
+        if (checkpointSoundEffect != null)
+        {
+            checkpointSoundEffect.Play();
+        }
     }
 
     private IEnumerator ShowCheckpointText()
