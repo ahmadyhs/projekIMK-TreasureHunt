@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Experimental;
@@ -257,6 +258,7 @@ public class RigController: MonoBehaviour
         }
     }
 
+#if (UNITY_EDITOR)
     private void OnDrawGizmos()
     {
         center = Vector3.Lerp(rightFoot.position,leftFoot.position, 0.5f);
@@ -291,4 +293,5 @@ public class RigController: MonoBehaviour
         UnityEditor.Handles.DrawBezier(startPoint, endPoint, endPoint, startPoint, Color.white, null, 5f);
         //Debug.Log("the white is = " + movingFoot.name);
     }
+#endif
 }

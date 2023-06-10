@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using UnityEngine;
 using AH = AdnanHelper;
@@ -18,8 +19,10 @@ public class tesLineClamp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+ #if (UNITY_EDITOR)
+
     private void OnDrawGizmos()
     {
         Vector3 startPoint = transform.position;
@@ -29,4 +32,5 @@ public class tesLineClamp : MonoBehaviour
         endPoint = linePoint.position;
         UnityEditor.Handles.DrawBezier(startPoint, endPoint, endPoint, startPoint, Color.red, null, 5f);
     }
+#endif
 }
