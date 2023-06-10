@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
             FuelTank ft = other.gameObject.GetComponent<FuelTank>();
             if (ft != null) 
             {
-                if (ft.active) fuel = Mathf.Max(fuel,ft.fuelAmount);
+                if(fuel < ft.fuelAmount) fuel = Mathf.Max(fuel,ft.getFuel(fuelDecaySpeed));
             }
                 boxCount += 1;
             if (other.GetContact(0).normal != Vector3.up)

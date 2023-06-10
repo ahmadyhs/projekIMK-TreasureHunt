@@ -10,6 +10,7 @@ public class SliderSetter : MonoBehaviour
     public Slider slider;
     public FloatReference sliderValue;
     private int execIndex = 0;
+    public string playerPerfs = "";
 
     private void Reset()
     {
@@ -19,7 +20,7 @@ public class SliderSetter : MonoBehaviour
     {
         //slider.value= volumeValue.Value;
         slider.onValueChanged.SetPersistentListenerState(0, UnityEventCallState.Off);
-        slider.value = PlayerPrefs.GetFloat("musicVolume",sliderValue.Value);
+        slider.value = PlayerPrefs.GetFloat(playerPerfs,sliderValue.Value);
     }
     // Start is called before the first frame update
     void Start()
@@ -32,8 +33,8 @@ public class SliderSetter : MonoBehaviour
     {
         if (execIndex == 0)
         {
-            sliderValue.Variable.SetValue(sliderValue.Value);
-            PlayerPrefs.SetFloat("musicVolume", slider.value);
+            sliderValue.Variable.SetValue(slider.value);
+            PlayerPrefs.SetFloat(playerPerfs, slider.value);
             execIndex = 1;
             slider.onValueChanged.SetPersistentListenerState(0, UnityEventCallState.RuntimeOnly);
             slider.onValueChanged.Invoke(slider.value);

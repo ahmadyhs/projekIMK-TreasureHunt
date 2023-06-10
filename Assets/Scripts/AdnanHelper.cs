@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using UnityEditor.Rendering;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -24,6 +25,18 @@ public static class AdnanHelper
         result.y = Mathf.Lerp(a.y, b.y, valueY);
         result.z = Mathf.Lerp(a.z, b.z, valueZ);
         return result;
+    }
+    public static Vector3 changeY(Vector3 target, float y)
+    {
+        Vector3 temp = target;
+        temp.y = y;
+        return temp;
+    }
+    public static Vector3 offsetY(Vector3 target, float y)
+    {
+        Vector3 temp = target;
+        temp.y += y;
+        return temp;
     }
 
     public static float xzDistance(Vector3 a, Vector3 b)

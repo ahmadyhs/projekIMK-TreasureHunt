@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class VolumeControl : MonoBehaviour
 {
-    AudioSource audioSource = new AudioSource();
+    public AudioSource audioSource = new AudioSource();
     public FloatReference volumeValue;
+    public string playerPerfs;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class VolumeControl : MonoBehaviour
     private void Start()
     {
         SetVolume();
+        this.SetVolume(PlayerPrefs.GetFloat(playerPerfs, volumeValue));
         //volumeSlider.value = audioSource.volume;
         //volumeSlider.onValueChanged.AddListener(OnSliderValueChanged);
     }
@@ -26,8 +28,7 @@ public class VolumeControl : MonoBehaviour
     //}
     public void SetVolume()
     {
-        //this.SetVolume(volumeValue.Value);
-        this.SetVolume(PlayerPrefs.GetFloat("musicVolume",volumeValue));
+        this.SetVolume(volumeValue.Value);
     }
     public void SetVolume(float volume)
     {

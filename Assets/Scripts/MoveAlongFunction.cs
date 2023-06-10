@@ -14,7 +14,7 @@ public class MoveAlongFunction : MonoBehaviour
     void Start()
     {
         originalPosition = transform.position;
-        offset = transform.localPosition.x  + transform.localPosition.z;
+        offset = transform.localPosition.x*2f  + transform.localPosition.z*0.5f;
     }
 
     // Update is called once per frame

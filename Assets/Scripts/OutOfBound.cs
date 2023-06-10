@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using AH = AdnanHelper;
 
 public class OutOfBound : MonoBehaviour
 {
@@ -15,8 +16,13 @@ public class OutOfBound : MonoBehaviour
     public float checkpointTextDuration = 3f; // Duration in seconds to show the checkpoint text
     public Transform respawnPosition;
     public SceneReference targetScene;
+    public GameObject popupPrefab;
     private Vector3 checkpointPosition;
+    private float fuel;
     private bool isRespawning = false;
+    private PlayerController pc;
+    private RigController rc;
+    private bool justRespawned = false;
 
     public AudioSource checkpointSoundEffect;
     public AudioSource trapSoundEffect;
@@ -25,6 +31,9 @@ public class OutOfBound : MonoBehaviour
     {
         remainingLives = maxLives;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        pc = player.GetComponent<PlayerController>();
+        rc = player.GetComponent<RigController>();
+        fuel = pc.fuel;
         startingPosition = player.transform.position;
         checkpointText.gameObject.SetActive(false); // Initially set the checkpoint text to inactive
     }
@@ -38,7 +47,10 @@ public class OutOfBound : MonoBehaviour
         }
         else if (other.CompareTag("Flag"))
         {
+            if(!justRespawned)
             SetCheckpoint(other.transform.position);
+            //other.GetComponent<Collider>().enabled = false;
+            other.GetComponent<CircleRenderer>().enable();
         }
         else if (other.CompareTag("Trap"))
         {
@@ -50,6 +62,13 @@ public class OutOfBound : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Flag"))
+        {
+            justRespawned = false;
+        }
+    }
     private void ReduceLife()
     {
         if (!isRespawning)
@@ -76,7 +95,9 @@ public class OutOfBound : MonoBehaviour
     {
         checkpointPosition = position;
         Debug.Log("Checkpoint set at position: " + checkpointPosition);
-        StartCoroutine(ShowCheckpointText());
+        //StartCoroutine(ShowCheckpointText());
+        ShowCheckpointText(position);
+        fuel = pc.fuel;
 
         // Play the checkpoint sound effect
         if (checkpointSoundEffect != null)
@@ -85,11 +106,17 @@ public class OutOfBound : MonoBehaviour
         }
     }
 
-    private IEnumerator ShowCheckpointText()
+    private void ShowCheckpointText(Vector3 position)
     {
-        checkpointText.gameObject.SetActive(true); // Set the checkpoint text to active
-        yield return new WaitForSeconds(checkpointTextDuration);
-        checkpointText.gameObject.SetActive(false); // Set the checkpoint text to inactive after the duration
+        //checkpointText.gameObject.SetActive(true); // Set the checkpoint text to active
+        //yield return new WaitForSeconds(checkpointTextDuration);
+        //checkpointText.gameObject.SetActive(false); // Set the checkpoint text to inactive after the duration
+        PopupText pt = PopupSpawner.spawnText(popupPrefab, AH.offsetY(position, 7f));
+        pt.setText("Checkpoint Set");
+        pt.tmp.fontSize = 3.5f;
+        pt.tmp.color = Color.white;
+        pt.tmp.outlineColor = Color.black;
+        pt.startT();
     }
 
     private void RespawnPlayer()
@@ -117,6 +144,11 @@ public class OutOfBound : MonoBehaviour
         respawnPosition += Vector3.up * respawnOffset;
 
         player.transform.position = respawnPosition;
+        rc.leftFoot.position = AH.changeY(rc.leftFoot.position, pc.groundY);
+        rc.rightFoot.position = AH.changeY(rc.rightFoot.position, pc.groundY);
+        pc.fuel = fuel;
+
+        justRespawned = true;
 
         Invoke("ResetRespawn", 0.5f);
     }
