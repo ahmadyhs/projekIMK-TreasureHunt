@@ -7,12 +7,14 @@ public class FuelTank : BlockMovementScript
 {
     public GameObject popupPrefab;
     public float fuelAmount = 20f;
+    public float highestFuelAmount = 40f;
     public bool active = false;
     public float cooldown = 1f;
     private float t;
     public Renderer glowRenderer;
     public Color glowColor;
     public Material glowMaterial;
+    public AudioSource audio;
     //public int lives = 3;
     // Start is called before the first frame update
     void Start()
@@ -28,8 +30,13 @@ public class FuelTank : BlockMovementScript
         glowMaterial = glowRenderer.material;
         if(glowColor == new Color())
         glowColor = glowMaterial.color;
+        audio.pitch = getPitch();
     }
 
+    private float getPitch()
+    {
+        return 0.3f + Mathf.Clamp01(1f - (fuelAmount / highestFuelAmount));
+    }
     // Update is called once per frame
     void Update()
     {
@@ -42,7 +49,9 @@ public class FuelTank : BlockMovementScript
     public float getFuel(float decaySpeed)
     {
         if(!active) return 0f;
-        active= false;
+        audio.pitch = getPitch();
+        audio.Play();
+        active = false;
         t = 0f;
         PopupText pt = (PopupText)PopupSpawner.spawnText(popupPrefab, transform);
         pt.setText(Mathf.FloorToInt(fuelAmount/decaySpeed) + "s");
