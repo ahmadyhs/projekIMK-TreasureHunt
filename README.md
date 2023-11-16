@@ -1,2 +1,2 @@
 # projekIMK-TreasureHunt
-[Download Playtesting](https://github.com/praktikum-tiunpad-2021/oop-final-kelompok-a-02/releases/tag/1)
+[Download Playtesting](https://github.com/ahmadyhs/projekIMK-TreasureHunt/releases/tag/play-test-2)
